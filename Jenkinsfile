@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        LIBRENMS_IMAGE = 'librenms/librenms
+        LIBRENMS_IMAGE = 'librenms/librenms'
     }
 
     stages {
