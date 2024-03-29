@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        DOCKER_CREDENTIALS = 'vladhl' 
+        DOCKER_CREDENTIALS = 'e687585e-7ca7-4aa7-8ece-06ea814bd55f' 
         IMAGE_NAME = 'vladhl/mylibrenms:latest' 
     }
     
