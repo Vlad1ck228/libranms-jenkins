@@ -1,20 +1,23 @@
 pipeline {
-   agent any
-   stages {
-      stage('Hello') {
-          steps {
-              echo 'Hello World 2'
-          }
-      }
-      stage('Shell1') {
-          steps {
-              sh 'ls /etc/netplan'
-          }
-      }
-      stage('Shell2') {
-          steps {
-              sh 'ls /home/'
-          }
-      }
-   }
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    docker.build("librenms/librenms:latest")
+                }
+            }
+        }
+
+        stage('Push') {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'vladhl') {
+                        docker.image("librenms/librenms:latest").push()
+                    }
+                }
+            }
+        }
+    }
 }
