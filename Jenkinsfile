@@ -1,20 +1,26 @@
 pipeline {
     agent any
-
+    
+    environment {
+        DOCKER_REGISTRY = "vladhl"
+        IMAGE_NAME = "mylibra"
+        IMAGE_TAG = "latest"
+    }
+    
     stages {
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build("librenms/librenms:latest")
+                    docker.build("${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}", "-f /home/ubuntu/libranms/Dockerfile .")
                 }
             }
         }
-
-        stage('Push') {
+        
+        stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'vladhl') {
-                        docker.image("librenms/librenms:latest").push()
+                    docker.withRegistry('https://index.docker.io/v1/', 'your-docker-credentials') {
+                        docker.image("${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}").push()
                     }
                 }
             }
