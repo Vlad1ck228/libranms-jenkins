@@ -1,4 +1,3 @@
-  LIBRENMS_DOCKER="1" \
   TZ="UTC" \
   PUID="1000" \
   PGID="1000"
