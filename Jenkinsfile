@@ -1,18 +1,25 @@
 pipeline {
     agent any
+    
+    environment {
+        DOCKER_CREDENTIALS = 'vladhl' 
+        IMAGE_NAME = 'vladhl/mylibrenms:latest' 
+    }
+    
     stages {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build('librenms/librenms:latest')
+                    docker.build(IMAGE_NAME)
                 }
             }
         }
+        
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.example.com', 'vladhl') {
-                        docker.image('your_image_name:latest').push("${env.BUILD_NUMBER}")
+                    docker.withRegistry('https://registry.hub.docker.com', DOCKER_CREDENTIALS) {
+                        docker.image(IMAGE_NAME).push()
                     }
                 }
             }
