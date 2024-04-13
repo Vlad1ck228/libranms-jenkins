@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Deploy') {
             steps {
-                sh 'ip a'
+                sh 'docker ps'
             }
         }
     }
