@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Deploy') {
             steps {
-                sh 'ansible --version'
+                sh 'ip a'
             }
         }
     }
